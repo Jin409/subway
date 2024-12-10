@@ -17,4 +17,12 @@ public class InputView {
         System.out.println("## 원하는 기능을 선택하세요.");
         return scanner.nextLine();
     }
+
+    public String readOptions() {
+        System.out.println("## 경로 기준\n"
+                + "1. 최단 거리\n"
+                + "2. 최소 시간\n"
+                + "B. 돌아가기");
+        return scanner.nextLine();
+    }
 }

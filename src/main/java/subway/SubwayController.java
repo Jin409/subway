@@ -1,6 +1,7 @@
 package subway;
 
 import subway.domain.FinishSign;
+import subway.domain.Option;
 import subway.handler.InputHandler;
 
 public class SubwayController {
@@ -11,9 +12,23 @@ public class SubwayController {
     }
 
     public void run() {
-        FinishSign finishSign = inputHandler.readFinishSign();
+        do {
+            processProgram();
+        } while (!inputHandler.readFinishSign().meansFinish());
+    }
 
-        if (finishSign.meansFinish()) {
+    private void processProgram() {
+        Option option = inputHandler.readOptions();
+
+        if (option.meansMinTime()) {
+            return;
+        }
+
+        if (option.meansLeastDistance()) {
+            return;
+        }
+
+        if (option.meansGoBack()) {
             return;
         }
     }
