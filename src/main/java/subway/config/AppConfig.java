@@ -3,6 +3,7 @@ package subway.config;
 import java.util.Scanner;
 import subway.SubwayController;
 import subway.handler.InputHandler;
+import subway.service.StationService;
 import subway.service.SubwayService;
 import subway.utils.LeastDistanceRouteFinder;
 import subway.utils.MinTimeRequiredRouteFinder;
@@ -40,7 +41,11 @@ public class AppConfig {
         return new SubwayService(leastDistanceRouteFinder(), minTimeRequiredRouteFinder());
     }
 
+    public StationService stationService() {
+        return new StationService();
+    }
+
     public SubwayController subwayController() {
-        return new SubwayController(inputHandler(), outputView(), subwayService());
+        return new SubwayController(inputHandler(), outputView(), subwayService(), stationService());
     }
 }

@@ -56,21 +56,25 @@ Q. 종료
 ## 원하는 기능을 선택하세요.
 ```
 
-- [ ] 위를 다시 물어본다.
+- [x] 위를 다시 물어본다.
+
+# 경로가 연결되어 있지 않으면 에러를 발생시킨다.
+
+- [ ] 사용자가 입력한 경로가 서로 연결되어 있지 않은 경우 에러를 던진다.
 
 # 프로그래밍 제약 사항
 
 ## Station, Line
 
-- [ ] Station, Line 클래스를 활용하여 지하철역과 노선을 구현해야 한다.
-- [ ] 제공하는 각 클래스의 기본 생성자를 추가할 수 없다.
-- [ ] 필드(인스턴스 변수)인 name의 접근 제어자 private을 변경할 수 없다.
-- [ ] 가능하면 setter 메소드(ex. setXXX)를 추가하지 않고 구현한다.
+- [x] Station, Line 클래스를 활용하여 지하철역과 노선을 구현해야 한다.
+- [x] 제공하는 각 클래스의 기본 생성자를 추가할 수 없다.
+- [x] 필드(인스턴스 변수)인 name의 접근 제어자 private을 변경할 수 없다.
+- [x] 가능하면 setter 메소드(ex. setXXX)를 추가하지 않고 구현한다.
 
 ## StationRepository, LineRepository
 
-- [ ] Station과 Line의 상태를 저장할 수 있는 StationRepository, LineRepository를 제공한다.
-- [ ] 필요 시 StationRepository, LineRepository 이 외 추가로 Repository를 만들 수 있다.
-- [ ] 추가로 생성되는 객체에 대해서 XXXRepository 네이밍으로 저장 클래스를 추가한다.
-- [ ] 객체들의 상태를 관리하기 위해서 XXXRepository 클래스를 활용해 저장 로직을 구현해야 한다.
-- [ ] 작성된 메서드는 수정할 수 없고, 필요에 따라 메서드를 자유롭게 추가할 수 있다.
+- [x] Station과 Line의 상태를 저장할 수 있는 StationRepository, LineRepository를 제공한다.
+- [x] 필요 시 StationRepository, LineRepository 이 외 추가로 Repository를 만들 수 있다.
+- [x] 추가로 생성되는 객체에 대해서 XXXRepository 네이밍으로 저장 클래스를 추가한다.
+- [x] 객체들의 상태를 관리하기 위해서 XXXRepository 클래스를 활용해 저장 로직을 구현해야 한다.
+- [x] 작성된 메서드는 수정할 수 없고, 필요에 따라 메서드를 자유롭게 추가할 수 있다.

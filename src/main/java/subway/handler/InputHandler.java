@@ -1,12 +1,13 @@
 package subway.handler;
 
-import java.util.List;
+import java.util.regex.Pattern;
 import subway.domain.FinishSign;
 import subway.domain.Option;
-import subway.dto.StationRequestDto;
 import subway.view.InputView;
 
 public class InputHandler {
+    private static final String REGEX_OF_KOREAN = "^[가-힣]*$";
+
     private final InputView inputView;
 
     public InputHandler(InputView inputView) {
@@ -23,15 +24,27 @@ public class InputHandler {
         return Option.findBySign(rawOption);
     }
 
-    public StationRequestDto readStations() {
-        String rawStartStation = inputView.readStartStation();
-        String rawEndStation = inputView.readEndStation();
+    public String readStartStation() {
+        String stationName = inputView.readStartStation();
+        validateStationName(stationName);
+        return stationName;
+    }
 
-        if (rawStartStation.equals(rawEndStation)) {
-            throw new IllegalArgumentException("출발역과 도착역이 동일합니다.");
+    public String readEndStation() {
+        String stationName = inputView.readEndStation();
+        validateStationName(stationName);
+        return stationName;
+    }
+
+
+    private void validateStationName(String name) {
+        if (!name.matches(REGEX_OF_KOREAN)) {
+            throw new IllegalArgumentException("역의 이름은 한글이어야 합니다.");
         }
 
-        return new StationRequestDto(rawStartStation, rawEndStation);
+        if (!name.contains("역")) {
+            throw new IllegalArgumentException("역으로 끝나도록 입력해야 합니다.");
+        }
     }
 
 }

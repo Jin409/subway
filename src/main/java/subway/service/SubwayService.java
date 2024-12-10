@@ -9,7 +9,6 @@ import subway.domain.StationRepository;
 import subway.domain.StationTimeRequired;
 import subway.domain.StationTimeRequiredRepository;
 import subway.dto.RouteDto;
-import subway.dto.StationRequestDto;
 import subway.utils.LeastDistanceRouteFinder;
 import subway.utils.MinTimeRequiredRouteFinder;
 
@@ -23,29 +22,12 @@ public class SubwayService {
         this.minTimeRequiredRouteFinder = minTimeRequiredRouteFinder;
     }
 
-    public RouteDto getRoute(StationRequestDto dto, Option option) {
-        String startStationName = dto.getStartStation();
-        String endStationName = dto.getEndStation();
-
-        findByName(startStationName);
-        findByName(endStationName);
-
+    public RouteDto getRoute(String startStationName, String endStationName, Option option) {
         if (option.meansLeastDistance()) {
             List<String> route = leastDistanceRouteFinder.find(startStationName, endStationName);
             return new RouteDto(route, calculateTime(route), calculateDistance(route));
         }
         List<String> route = minTimeRequiredRouteFinder.find(startStationName, endStationName);
-        return new RouteDto(route, calculateTime(route), calculateDistance(route));
-    }
-
-    public RouteDto getMinTimeRoute(StationRequestDto dto) {
-        String startStationName = dto.getStartStation();
-        String endStationName = dto.getEndStation();
-
-        findByName(startStationName);
-        findByName(endStationName);
-
-        List<String> route = leastDistanceRouteFinder.find(startStationName, endStationName);
         return new RouteDto(route, calculateTime(route), calculateDistance(route));
     }
 
