@@ -23,6 +23,8 @@ public class InputView {
                 + "1. 최단 거리\n"
                 + "2. 최소 시간\n"
                 + "B. 돌아가기");
+        System.out.println("\n"
+                + "## 원하는 기능을 선택하세요.");
         return scanner.nextLine();
     }
 
