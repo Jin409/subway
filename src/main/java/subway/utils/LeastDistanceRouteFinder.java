@@ -5,8 +5,8 @@ import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.WeightedMultigraph;
 import subway.domain.Station;
-import subway.domain.StationDistance;
-import subway.domain.StationDistanceRepository;
+import subway.domain.StationIntervalInfo;
+import subway.domain.StationIntervalInfoRepository;
 import subway.domain.StationRepository;
 
 public class LeastDistanceRouteFinder {
@@ -36,10 +36,10 @@ public class LeastDistanceRouteFinder {
 
     private void updateDistances(List<Station> stations) {
         for (Station station : stations) {
-            List<StationDistance> stationDistances = StationDistanceRepository.getAllStationDistancesStartsAt(station);
-            for (StationDistance stationDistance : stationDistances) {
-                graph.setEdgeWeight(graph.addEdge(station.getName(), stationDistance.getEndStation().getName()),
-                        stationDistance.getDistance());
+            List<StationIntervalInfo> stationIntervalInfos = StationIntervalInfoRepository.getAllStationDistancesStartsAt(station);
+            for (StationIntervalInfo stationIntervalInfo : stationIntervalInfos) {
+                graph.setEdgeWeight(graph.addEdge(station.getName(), stationIntervalInfo.getEndStation().getName()),
+                        stationIntervalInfo.getDistance());
             }
         }
     }

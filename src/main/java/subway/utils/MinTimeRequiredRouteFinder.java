@@ -5,11 +5,9 @@ import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.WeightedMultigraph;
 import subway.domain.Station;
-import subway.domain.StationDistance;
-import subway.domain.StationDistanceRepository;
+import subway.domain.StationIntervalInfo;
+import subway.domain.StationIntervalInfoRepository;
 import subway.domain.StationRepository;
-import subway.domain.StationTimeRequired;
-import subway.domain.StationTimeRequiredRepository;
 
 public class MinTimeRequiredRouteFinder {
     private WeightedMultigraph<String, DefaultWeightedEdge> graph;
@@ -34,11 +32,11 @@ public class MinTimeRequiredRouteFinder {
 
     private void updateTimeRequireds(List<Station> stations) {
         for (Station station : stations) {
-            List<StationTimeRequired> stationTimeRequireds = StationTimeRequiredRepository.getAllStationDistancesStartsAt(
+            List<StationIntervalInfo> stationIntervalInfos = StationIntervalInfoRepository.getAllStationDistancesStartsAt(
                     station);
-            for (StationTimeRequired stationTimeRequired : stationTimeRequireds) {
-                graph.setEdgeWeight(graph.addEdge(station.getName(), stationTimeRequired.getEndStation().getName()),
-                        stationTimeRequired.getTimeRequired());
+            for (StationIntervalInfo distance : stationIntervalInfos) {
+                graph.setEdgeWeight(graph.addEdge(station.getName(), distance.getEndStation().getName()),
+                        distance.getTimeRequired());
             }
         }
     }

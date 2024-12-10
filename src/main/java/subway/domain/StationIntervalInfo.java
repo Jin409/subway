@@ -1,12 +1,14 @@
 package subway.domain;
 
-public class StationDistance {
+public class StationIntervalInfo {
     private final int distance;
+    private final int timeRequired;
     private final Station startStation;
     private final Station endStation;
 
-    public StationDistance(int distance, Station startStation, Station endStation) {
+    public StationIntervalInfo(int distance, int timeRequired, Station startStation, Station endStation) {
         this.distance = distance;
+        this.timeRequired = timeRequired;
         this.startStation = startStation;
         this.endStation = endStation;
     }
@@ -21,5 +23,9 @@ public class StationDistance {
 
     public Station getEndStation() {
         return endStation;
+    }
+
+    public int getTimeRequired() {
+        return timeRequired;
     }
 }

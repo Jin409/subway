@@ -3,11 +3,9 @@ package subway.service;
 import java.util.List;
 import subway.domain.Option;
 import subway.domain.Station;
-import subway.domain.StationDistance;
-import subway.domain.StationDistanceRepository;
+import subway.domain.StationIntervalInfo;
+import subway.domain.StationIntervalInfoRepository;
 import subway.domain.StationRepository;
-import subway.domain.StationTimeRequired;
-import subway.domain.StationTimeRequiredRepository;
 import subway.dto.RouteDto;
 import subway.utils.LeastDistanceRouteFinder;
 import subway.utils.MinTimeRequiredRouteFinder;
@@ -37,8 +35,9 @@ public class SubwayService {
             Station startStation = findByName(route.get(i));
             Station endStation = findByName(route.get(i + 1));
 
-            StationDistance stationDistance = StationDistanceRepository.findByStartEndStation(startStation, endStation);
-            result += stationDistance.getDistance();
+            StationIntervalInfo stationIntervalInfo = StationIntervalInfoRepository.findByStartEndStation(startStation,
+                    endStation);
+            result += stationIntervalInfo.getDistance();
         }
         return result;
     }
@@ -49,9 +48,9 @@ public class SubwayService {
             Station startStation = findByName(route.get(i));
             Station endStation = findByName(route.get(i + 1));
 
-            StationTimeRequired stationTimeRequired = StationTimeRequiredRepository.findByStartEndStation(startStation,
+            StationIntervalInfo info = StationIntervalInfoRepository.findByStartEndStation(startStation,
                     endStation);
-            result += stationTimeRequired.getTimeRequired();
+            result += info.getTimeRequired();
         }
         return result;
     }

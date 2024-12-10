@@ -42,8 +42,7 @@ public class SubwayController {
 
     private void readyToProcess() {
         StationInitializeService.saveAllStations();
-        StationInitializeService.saveAllDistances();
-        StationInitializeService.saveAllTimeRequireds();
+        StationInitializeService.saveInformation();
     }
 
     private RouteDto findRoute(Option option) {

@@ -2,11 +2,9 @@ package subway.service;
 
 import java.util.List;
 import subway.domain.Station;
-import subway.domain.StationDistance;
-import subway.domain.StationDistanceRepository;
+import subway.domain.StationIntervalInfo;
+import subway.domain.StationIntervalInfoRepository;
 import subway.domain.StationRepository;
-import subway.domain.StationTimeRequired;
-import subway.domain.StationTimeRequiredRepository;
 
 public class StationInitializeService {
 
@@ -17,37 +15,41 @@ public class StationInitializeService {
         }
     }
 
-    public static void saveAllDistances() {
-        StationDistanceRepository.addStationDistance(new StationDistance(2, findByName("교대역"), findByName("강남역")));
-        StationDistanceRepository.addStationDistance(new StationDistance(3, findByName("교대역"), findByName("남부터미널역")));
+    public static void saveInformation() {
+        StationIntervalInfoRepository.addStationDistance(
+                new StationIntervalInfo(2, 3, findByName("교대역"), findByName("강남역")));
+        StationIntervalInfoRepository.addStationDistance(
+                new StationIntervalInfo(2, 3, findByName("강남역"), findByName("교대역")));
 
-        StationDistanceRepository.addStationDistance(new StationDistance(2, findByName("강남역"), findByName("역삼역")));
-        StationDistanceRepository.addStationDistance(new StationDistance(2, findByName("강남역"), findByName("양재역")));
+        StationIntervalInfoRepository.addStationDistance(
+                new StationIntervalInfo(3, 2, findByName("교대역"), findByName("남부터미널역")));
+        StationIntervalInfoRepository.addStationDistance(
+                new StationIntervalInfo(3, 2, findByName("남부터미널역"), findByName("교대역")));
 
-        StationDistanceRepository.addStationDistance(new StationDistance(6, findByName("남부터미널역"), findByName("양재역")));
+        StationIntervalInfoRepository.addStationDistance(
+                new StationIntervalInfo(2, 3, findByName("강남역"), findByName("역삼역")));
+        StationIntervalInfoRepository.addStationDistance(
+                new StationIntervalInfo(2, 3, findByName("역삼역"), findByName("강남역")));
 
-        StationDistanceRepository.addStationDistance(new StationDistance(1, findByName("양재역"), findByName("매봉역")));
-        StationDistanceRepository.addStationDistance(new StationDistance(10, findByName("양재역"), findByName("양재시민의숲역")));
-    }
+        StationIntervalInfoRepository.addStationDistance(
+                new StationIntervalInfo(2, 8, findByName("강남역"), findByName("양재역")));
+        StationIntervalInfoRepository.addStationDistance(
+                new StationIntervalInfo(2, 8, findByName("양재역"), findByName("강남역")));
 
-    public static void saveAllTimeRequireds() {
-        StationTimeRequiredRepository.addStationTimeRequired(
-                new StationTimeRequired(3, findByName("교대역"), findByName("강남역")));
-        StationTimeRequiredRepository.addStationTimeRequired(
-                new StationTimeRequired(2, findByName("교대역"), findByName("남부터미널역")));
+        StationIntervalInfoRepository.addStationDistance(
+                new StationIntervalInfo(6, 5, findByName("남부터미널역"), findByName("양재역")));
+        StationIntervalInfoRepository.addStationDistance(
+                new StationIntervalInfo(6, 5, findByName("양재역"), findByName("남부터미널역")));
 
-        StationTimeRequiredRepository.addStationTimeRequired(
-                new StationTimeRequired(3, findByName("강남역"), findByName("역삼역")));
-        StationTimeRequiredRepository.addStationTimeRequired(
-                new StationTimeRequired(8, findByName("강남역"), findByName("양재역")));
+        StationIntervalInfoRepository.addStationDistance(
+                new StationIntervalInfo(1, 1, findByName("양재역"), findByName("매봉역")));
+        StationIntervalInfoRepository.addStationDistance(
+                new StationIntervalInfo(1, 1, findByName("매봉역"), findByName("양재역")));
 
-        StationTimeRequiredRepository.addStationTimeRequired(
-                new StationTimeRequired(5, findByName("남부터미널역"), findByName("양재역")));
-
-        StationTimeRequiredRepository.addStationTimeRequired(
-                new StationTimeRequired(1, findByName("양재역"), findByName("매봉역")));
-        StationTimeRequiredRepository.addStationTimeRequired(
-                new StationTimeRequired(3, findByName("양재역"), findByName("양재시민의숲역")));
+        StationIntervalInfoRepository.addStationDistance(
+                new StationIntervalInfo(10, 3, findByName("양재역"), findByName("양재시민의숲역")));
+        StationIntervalInfoRepository.addStationDistance(
+                new StationIntervalInfo(10, 3, findByName("양재시민의숲역"), findByName("양재역")));
     }
 
     private static Station findByName(String name) {
