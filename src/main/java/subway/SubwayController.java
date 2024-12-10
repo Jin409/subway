@@ -28,13 +28,7 @@ public class SubwayController {
 
         while (!inputHandler.readFinishSign().meansFinish()) {
             try {
-                Option option = inputHandler.readOptions();
-                if (option.meansGoBack()) {
-                    return;
-                }
-
-                RouteDto routeDto = findRoute(option);
-                outputView.displayRoute(routeDto);
+                process();
             } catch (Exception e) {
                 ErrorHandler.handle(e);
             }
@@ -46,17 +40,36 @@ public class SubwayController {
         StationInitializeService.saveInformation();
     }
 
-    private RouteDto findRoute(Option option) {
-        String startStationName = inputHandler.readStartStation();
-        routeService.validateStationName(startStationName);
+    private void process() {
 
-        String endStationName = inputHandler.readEndStation();
-        routeService.validateStationName(endStationName);
+        String startStationName;
+        String endStationName;
+        Option option;
 
-        if (startStationName.equals(endStationName)) {
-            throw new IllegalArgumentException("출발역과 도착역이 동일합니다.");
+        while (true) {
+            try {
+                option = inputHandler.readOptions();
+                if (option.meansGoBack()) {
+                    return;
+                }
+
+                startStationName = inputHandler.readStartStation();
+                routeService.validateStationName(startStationName);
+
+                endStationName = inputHandler.readEndStation();
+                routeService.validateStationName(endStationName);
+
+                if (startStationName.equals(endStationName)) {
+                    throw new IllegalArgumentException("출발역과 도착역이 동일합니다.");
+                }
+                break;
+            } catch (Exception e) {
+                ErrorHandler.handle(e);
+            }
         }
-        return subwayService.getRoute(startStationName, endStationName, option);
+
+        RouteDto routeDto = subwayService.getRoute(startStationName, endStationName, option);
+        outputView.displayRoute(routeDto);
     }
 }
 
