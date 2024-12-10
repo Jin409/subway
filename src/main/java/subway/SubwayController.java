@@ -1,21 +1,23 @@
 package subway;
 
-import subway.domain.FinishSign;
 import subway.domain.Option;
 import subway.dto.StationRequestDto;
 import subway.handler.ErrorHandler;
 import subway.handler.InputHandler;
+import subway.service.SubwayService;
 
 public class SubwayController {
     private final InputHandler inputHandler;
-    private final StationService stationService;
+    private final SubwayService subwayService;
 
-    public SubwayController(InputHandler inputHandler, StationService stationService) {
+    public SubwayController(InputHandler inputHandler, SubwayService subWayService) {
         this.inputHandler = inputHandler;
-        this.stationService = stationService;
+        this.subwayService = subWayService;
     }
 
     public void run() {
+        readyToProcess();
+
         while (!inputHandler.readFinishSign().meansFinish()) {
             try {
                 processProgram();
@@ -25,6 +27,12 @@ public class SubwayController {
         }
     }
 
+    private void readyToProcess() {
+        subwayService.saveAllStations();
+        subwayService.saveAllDistances();
+        subwayService.saveAllTimeRequireds();
+    }
+
     private void processProgram() {
         Option option = inputHandler.readOptions();
         if (option.meansGoBack()) {
@@ -32,13 +40,13 @@ public class SubwayController {
         }
 
         StationRequestDto stationRequestDto = inputHandler.readStations();
-        stationService.validateStationName(stationRequestDto);
 
-        if (option.meansMinTime()) {
+        if (option.meansLeastDistance()) {
+            subwayService.getMinDistanceRoute(stationRequestDto);
             return;
         }
 
-        if (option.meansLeastDistance()) {
+        if (option.meansMinTime()) {
             return;
         }
 

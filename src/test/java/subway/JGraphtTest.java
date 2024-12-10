@@ -64,12 +64,5 @@ public class JGraphtTest {
         // 도착, 출발 순서
 
         assertThat(shortestPath.size()).isEqualTo(3);
-
-
-        /*
-         2호선: 교대역 - ( 2km / 3분 ) - 강남역 - ( 2km / 3분 ) - 역삼역
-   - 3호선: 교대역 - ( 3km / 2분 ) - 남부터미널역 - ( 6km / 5분 ) - 양재역 - ( 1km / 1분 ) - 매봉역
-   - 신분당선: 강남역 - ( 2km / 8분 ) - 양재역 - ( 10km / 3분 ) - 양재시민의숲역
-        * */
     }
 }
