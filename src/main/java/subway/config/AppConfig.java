@@ -4,7 +4,8 @@ import java.util.Scanner;
 import subway.SubwayController;
 import subway.handler.InputHandler;
 import subway.service.SubwayService;
-import subway.utils.MinDistanceFinder;
+import subway.utils.LeastDistanceRouteFinder;
+import subway.utils.MinTimeRequiredRouteFinder;
 import subway.view.InputView;
 import subway.view.OutputView;
 
@@ -27,12 +28,16 @@ public class AppConfig {
         return new InputHandler(inputView());
     }
 
-    public MinDistanceFinder minDistanceFinder() {
-        return new MinDistanceFinder();
+    public LeastDistanceRouteFinder leastDistanceRouteFinder() {
+        return new LeastDistanceRouteFinder();
+    }
+
+    public MinTimeRequiredRouteFinder minTimeRequiredRouteFinder() {
+        return new MinTimeRequiredRouteFinder();
     }
 
     public SubwayService subwayService() {
-        return new SubwayService(minDistanceFinder());
+        return new SubwayService(leastDistanceRouteFinder(), minTimeRequiredRouteFinder());
     }
 
     public SubwayController subwayController() {

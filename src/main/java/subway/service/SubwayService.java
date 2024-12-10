@@ -1,9 +1,7 @@
 package subway.service;
 
 import java.util.List;
-import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
-import org.jgrapht.graph.DefaultWeightedEdge;
-import org.jgrapht.graph.WeightedMultigraph;
+import subway.domain.Option;
 import subway.domain.Station;
 import subway.domain.StationDistance;
 import subway.domain.StationDistanceRepository;
@@ -12,23 +10,42 @@ import subway.domain.StationTimeRequired;
 import subway.domain.StationTimeRequiredRepository;
 import subway.dto.RouteDto;
 import subway.dto.StationRequestDto;
-import subway.utils.MinDistanceFinder;
+import subway.utils.LeastDistanceRouteFinder;
+import subway.utils.MinTimeRequiredRouteFinder;
 
 public class SubwayService {
-    private final MinDistanceFinder minDistanceFinder;
+    private final LeastDistanceRouteFinder leastDistanceRouteFinder;
+    private final MinTimeRequiredRouteFinder minTimeRequiredRouteFinder;
 
-    public SubwayService(MinDistanceFinder minDistanceFinder) {
-        this.minDistanceFinder = minDistanceFinder;
+    public SubwayService(LeastDistanceRouteFinder leastDistanceRouteFinder,
+                         MinTimeRequiredRouteFinder minTimeRequiredRouteFinder) {
+        this.leastDistanceRouteFinder = leastDistanceRouteFinder;
+        this.minTimeRequiredRouteFinder = minTimeRequiredRouteFinder;
     }
 
-    public RouteDto getMinDistanceRoute(StationRequestDto dto) {
+    public RouteDto getRoute(StationRequestDto dto, Option option) {
         String startStationName = dto.getStartStation();
         String endStationName = dto.getEndStation();
 
         findByName(startStationName);
         findByName(endStationName);
 
-        List<String> route = minDistanceFinder.find(startStationName, endStationName);
+        if (option.meansLeastDistance()) {
+            List<String> route = leastDistanceRouteFinder.find(startStationName, endStationName);
+            return new RouteDto(route, calculateTime(route), calculateDistance(route));
+        }
+        List<String> route = minTimeRequiredRouteFinder.find(startStationName, endStationName);
+        return new RouteDto(route, calculateTime(route), calculateDistance(route));
+    }
+
+    public RouteDto getMinTimeRoute(StationRequestDto dto) {
+        String startStationName = dto.getStartStation();
+        String endStationName = dto.getEndStation();
+
+        findByName(startStationName);
+        findByName(endStationName);
+
+        List<String> route = leastDistanceRouteFinder.find(startStationName, endStationName);
         return new RouteDto(route, calculateTime(route), calculateDistance(route));
     }
 

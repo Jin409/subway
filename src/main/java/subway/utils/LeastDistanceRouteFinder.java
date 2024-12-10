@@ -9,7 +9,7 @@ import subway.domain.StationDistance;
 import subway.domain.StationDistanceRepository;
 import subway.domain.StationRepository;
 
-public class MinDistanceFinder {
+public class LeastDistanceRouteFinder {
     private WeightedMultigraph<String, DefaultWeightedEdge> graph;
     private DijkstraShortestPath dijkstraShortestPath;
 

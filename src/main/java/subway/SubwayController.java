@@ -28,7 +28,6 @@ public class SubwayController {
                 if (routeDto == null) {
                     return;
                 }
-
                 outputView.displayRoute(routeDto);
             } catch (Exception e) {
                 ErrorHandler.handle(e);
@@ -47,18 +46,8 @@ public class SubwayController {
         if (option.meansGoBack()) {
             return null;
         }
-
         StationRequestDto stationRequestDto = inputHandler.readStations();
-
-        if (option.meansLeastDistance()) {
-            return subwayService.getMinDistanceRoute(stationRequestDto);
-        }
-
-        // TODO: 여기 고치기
-        if (option.meansMinTime()) {
-            return null;
-        }
-        return null;
+        return subwayService.getRoute(stationRequestDto, option);
     }
 }
 
