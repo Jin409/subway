@@ -1,7 +1,6 @@
 package subway.handler;
 
-import java.util.regex.Pattern;
-import subway.domain.FinishSign;
+import subway.view.FinishSign;
 import subway.domain.Option;
 import subway.view.InputView;
 
@@ -15,8 +14,14 @@ public class InputHandler {
     }
 
     public FinishSign readFinishSign() {
-        String rawFinishSign = inputView.readFinishOrNot();
-        return FinishSign.findBySign(rawFinishSign);
+        while (true) {
+            try {
+                String rawFinishSign = inputView.readFinishOrNot();
+                return FinishSign.findBySign(rawFinishSign);
+            } catch (Exception e) {
+                ErrorHandler.handle(e);
+            }
+        }
     }
 
     public Option readOptions() {
