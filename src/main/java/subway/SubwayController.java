@@ -4,6 +4,7 @@ import subway.domain.Option;
 import subway.dto.RouteDto;
 import subway.handler.ErrorHandler;
 import subway.handler.InputHandler;
+import subway.service.StationInitializeService;
 import subway.service.StationService;
 import subway.service.SubwayService;
 import subway.view.OutputView;
@@ -40,9 +41,9 @@ public class SubwayController {
     }
 
     private void readyToProcess() {
-        subwayService.saveAllStations();
-        subwayService.saveAllDistances();
-        subwayService.saveAllTimeRequireds();
+        StationInitializeService.saveAllStations();
+        StationInitializeService.saveAllDistances();
+        StationInitializeService.saveAllTimeRequireds();
     }
 
     private RouteDto findRoute(Option option) {
