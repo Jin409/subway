@@ -5,6 +5,8 @@ import subway.domain.Option;
 import subway.view.InputView;
 
 public class InputHandler {
+    private static final String REGEX_OF_STATION_NAME = "^[가-힣]*역$";
+
     private final InputView inputView;
 
     public InputHandler(InputView inputView) {
@@ -41,8 +43,8 @@ public class InputHandler {
 
 
     private void validateStationName(String name) {
-        if (!name.contains("역")) {
-            throw new IllegalArgumentException("역으로 끝나도록 입력해야 합니다.");
+        if (!name.matches(REGEX_OF_STATION_NAME)) {
+            throw new IllegalArgumentException("역 이름은 역으로 끝나야 하며, 정확하게 한글로 입력하셔야 합니다.");
         }
     }
 
