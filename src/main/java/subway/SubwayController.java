@@ -1,18 +1,22 @@
 package subway;
 
 import subway.domain.Option;
+import subway.dto.RouteDto;
 import subway.dto.StationRequestDto;
 import subway.handler.ErrorHandler;
 import subway.handler.InputHandler;
 import subway.service.SubwayService;
+import subway.view.OutputView;
 
 public class SubwayController {
     private final InputHandler inputHandler;
+    private final OutputView outputView;
     private final SubwayService subwayService;
 
-    public SubwayController(InputHandler inputHandler, SubwayService subWayService) {
+    public SubwayController(InputHandler inputHandler, OutputView outputView, SubwayService subwayService) {
         this.inputHandler = inputHandler;
-        this.subwayService = subWayService;
+        this.outputView = outputView;
+        this.subwayService = subwayService;
     }
 
     public void run() {
@@ -20,7 +24,12 @@ public class SubwayController {
 
         while (!inputHandler.readFinishSign().meansFinish()) {
             try {
-                processProgram();
+                RouteDto routeDto = processProgram();
+                if (routeDto == null) {
+                    return;
+                }
+
+                outputView.displayRoute(routeDto);
             } catch (Exception e) {
                 ErrorHandler.handle(e);
             }
@@ -33,23 +42,23 @@ public class SubwayController {
         subwayService.saveAllTimeRequireds();
     }
 
-    private void processProgram() {
+    private RouteDto processProgram() {
         Option option = inputHandler.readOptions();
         if (option.meansGoBack()) {
-            return;
+            return null;
         }
 
         StationRequestDto stationRequestDto = inputHandler.readStations();
 
         if (option.meansLeastDistance()) {
-            subwayService.getMinDistanceRoute(stationRequestDto);
-            return;
+            return subwayService.getMinDistanceRoute(stationRequestDto);
         }
 
+        // TODO: 여기 고치기
         if (option.meansMinTime()) {
-            return;
+            return null;
         }
-
+        return null;
     }
 }
 

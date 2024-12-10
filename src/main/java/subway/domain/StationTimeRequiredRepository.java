@@ -23,4 +23,10 @@ public class StationTimeRequiredRepository {
                 .collect(Collectors.toList());
     }
 
+    public static StationTimeRequired findByStartEndStation(Station startStation, Station endStation) {
+        return stationTimeRequireds.stream()
+                .filter(stationDistance -> stationDistance.getStartStation().equals(startStation)
+                        && stationDistance.getEndStation().equals(endStation)).findAny()
+                .orElseThrow(() -> new IllegalArgumentException("해당 경로는 존재하지 않습니다."));
+    }
 }
