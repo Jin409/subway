@@ -14,7 +14,7 @@ public class LeastDistanceRouteFinder {
     private DijkstraShortestPath dijkstraShortestPath;
 
     public List<String> find(String startStationName, String endStationName) {
-        if (dijkstraShortestPath != null) {
+        if (dijkstraShortestPath == null) {
             List<Station> stations = StationRepository.stations();
             updateStations(stations);
             updateDistances(stations);
