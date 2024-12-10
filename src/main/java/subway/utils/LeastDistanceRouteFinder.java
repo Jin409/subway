@@ -14,13 +14,17 @@ public class LeastDistanceRouteFinder {
     private DijkstraShortestPath dijkstraShortestPath;
 
     public List<String> find(String startStationName, String endStationName) {
-        if (dijkstraShortestPath == null) {
+        if (dijkstraShortestPath != null) {
             List<Station> stations = StationRepository.stations();
             updateStations(stations);
             updateDistances(stations);
             dijkstraShortestPath = new DijkstraShortestPath(graph);
         }
-        return dijkstraShortestPath.getPath(startStationName, endStationName).getVertexList();
+        try {
+            return dijkstraShortestPath.getPath(startStationName, endStationName).getVertexList();
+        } catch (Exception e) {
+            throw new RuntimeException("해당 경로는 존재하지 않습니다.");
+        }
     }
 
     private void updateStations(List<Station> stations) {
