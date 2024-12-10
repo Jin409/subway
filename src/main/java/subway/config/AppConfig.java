@@ -1,6 +1,8 @@
-package subway;
+package subway.config;
 
 import java.util.Scanner;
+import subway.StationService;
+import subway.SubwayController;
 import subway.handler.InputHandler;
 import subway.view.InputView;
 
@@ -19,7 +21,11 @@ public class AppConfig {
         return new InputHandler(inputView());
     }
 
+    public StationService stationService() {
+        return new StationService();
+    }
+
     public SubwayController subwayController() {
-        return new SubwayController(inputHandler());
+        return new SubwayController(inputHandler(), stationService());
     }
 }

@@ -25,4 +25,14 @@ public class InputView {
                 + "B. 돌아가기");
         return scanner.nextLine();
     }
+
+    public String readStartStation() {
+        System.out.println("## 출발역을 입력하세요.");
+        return scanner.nextLine();
+    }
+
+    public String readEndStation() {
+        System.out.println("## 도착역을 입력하세요.");
+        return scanner.nextLine();
+    }
 }
