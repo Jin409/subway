@@ -5,7 +5,7 @@ import subway.dto.RouteDto;
 import subway.handler.ErrorHandler;
 import subway.handler.InputHandler;
 import subway.service.StationInitializeService;
-import subway.service.StationService;
+import subway.service.RouteService;
 import subway.service.SubwayService;
 import subway.view.OutputView;
 
@@ -13,14 +13,14 @@ public class SubwayController {
     private final InputHandler inputHandler;
     private final OutputView outputView;
     private final SubwayService subwayService;
-    private final StationService stationService;
+    private final RouteService routeService;
 
     public SubwayController(InputHandler inputHandler, OutputView outputView, SubwayService subwayService,
-                            StationService stationService) {
+                            RouteService routeService) {
         this.inputHandler = inputHandler;
         this.outputView = outputView;
         this.subwayService = subwayService;
-        this.stationService = stationService;
+        this.routeService = routeService;
     }
 
     public void run() {
@@ -48,10 +48,10 @@ public class SubwayController {
 
     private RouteDto findRoute(Option option) {
         String startStationName = inputHandler.readStartStation();
-        stationService.validateStationName(startStationName);
+        routeService.validateStationName(startStationName);
 
         String endStationName = inputHandler.readEndStation();
-        stationService.validateStationName(startStationName);
+        routeService.validateStationName(startStationName);
 
         if (startStationName.equals(endStationName)) {
             throw new IllegalArgumentException("출발역과 도착역이 동일합니다.");

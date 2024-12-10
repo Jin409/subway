@@ -50,7 +50,7 @@ public class StationInitializeService {
                 new StationTimeRequired(3, findByName("양재역"), findByName("양재시민의숲역")));
     }
 
-    private Station findByName(String name) {
+    private static Station findByName(String name) {
         return StationRepository.findByName(name).orElseThrow(() -> new IllegalArgumentException("해당 역은 존재하지 않습니다."));
     }
 }
