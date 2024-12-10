@@ -32,6 +32,7 @@ public class SubwayController {
                 if (option.meansGoBack()) {
                     return;
                 }
+
                 RouteDto routeDto = findRoute(option);
                 outputView.displayRoute(routeDto);
             } catch (Exception e) {
@@ -50,7 +51,7 @@ public class SubwayController {
         routeService.validateStationName(startStationName);
 
         String endStationName = inputHandler.readEndStation();
-        routeService.validateStationName(startStationName);
+        routeService.validateStationName(endStationName);
 
         if (startStationName.equals(endStationName)) {
             throw new IllegalArgumentException("출발역과 도착역이 동일합니다.");
